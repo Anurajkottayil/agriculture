@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 25,),
             TextFormField(
               controller: _passwordController,
-              decoration: InputDecoration(labelText: 'password',border: OutlineInputBorder(borderRadius: BorderRadius.circular(20) ),prefixIcon:Icon(Icons.email), ),
+              decoration: InputDecoration(labelText: 'password',border: OutlineInputBorder(borderRadius: BorderRadius.circular(20) ),prefixIcon:Icon(Icons.lock), ),
               validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter the password';
