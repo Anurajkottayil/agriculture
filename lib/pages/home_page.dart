@@ -26,6 +26,8 @@ int currentIndex=0;
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
+        surfaceTintColor: Color.fromARGB(255, 54, 165, 14),
+       
         child:Column(
           children: [
             SizedBox(height:50 ,),
