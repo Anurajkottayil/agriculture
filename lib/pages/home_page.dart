@@ -1,3 +1,4 @@
+import 'package:agriculture/pages/cart_appbar.dart';
 import 'package:agriculture/pages/cart_page.dart';
 import 'package:agriculture/pages/explore_page.dart';
 import 'package:agriculture/pages/profile_page.dart';
@@ -5,6 +6,7 @@ import 'package:agriculture/pages/services_page.dart';
 import 'package:agriculture/pages/Login _page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'cart_appbar.dart';
 import 'package:badges/badges.dart' as badges;
 
 
@@ -70,7 +72,7 @@ int currentIndex=0;
                   title: const Text("Cart"),
                   leading: const Icon(Icons.shopping_bag),
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage1()));
                   },
 
                 ),

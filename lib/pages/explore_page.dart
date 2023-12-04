@@ -3,6 +3,7 @@ import 'package:agriculture/data/products.dart';
 import 'package:agriculture/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ExplorePage extends StatefulWidget {
   const ExplorePage({super.key});
@@ -12,11 +13,25 @@ class ExplorePage extends StatefulWidget {
 }
 
 class _ExplorePageState extends State<ExplorePage> {
+     final String phoneNumber = 'tel:+91 9605048647';
+
   late List<Product> filteredProducts;
   @override
   void initState() {
     filteredProducts = List.from(products);
     super.initState();
+  } void _launchPhoneApp() async {
+   
+    Uri phoneUri = Uri.parse(phoneNumber);
+
+  
+    if (await canLaunchUrl(phoneUri)) {
+   
+      await launchUrl(phoneUri);
+    } else {
+     
+      print('Could not launch $phoneNumber');
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -79,8 +94,11 @@ class _ExplorePageState extends State<ExplorePage> {
                             )
                             
                             ),
-                            Text("Get free support from our customer serviceSS"),
-                            FilledButton(onPressed: () {}, child:Text("call now"))
+                            Text("Get free support from our customer service"),
+                            FilledButton(onPressed: () {
+                                _launchPhoneApp();
+
+                            }, child:Text("call now"))
                                       
                           ],
                         ),

@@ -1,4 +1,6 @@
 import 'package:agriculture/models/product.dart';
+import 'package:agriculture/pages/cart_appbar.dart';
+import 'package:agriculture/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'cart.dart';
 
@@ -10,6 +12,32 @@ class orderPage extends StatefulWidget {
 }
 
 class _orderPageState extends State<orderPage> {
+
+  void _dialogebox(){
+    showDialog(
+      context: context,
+      builder: (context){
+        return Dialog(
+          child: Container(
+            height: 200,
+            width: 200,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+             
+              children: [
+                Text("Order Placed Successfully"),
+                SizedBox(height: 20,),
+                ElevatedButton(onPressed: (){
+                 
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                }, child: Text("Continue Shopping"))
+              ],
+            ),
+          ),
+        );
+      }
+    );
+  }
   
  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController addressController = TextEditingController();
@@ -63,19 +91,22 @@ class _orderPageState extends State<orderPage> {
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
                         children: [
-                          Row(
-                            
-                            children: [
-                              SizedBox(height: 40,),
-                              Text("Total MRP            :", style: TextStyle(fontSize: 20),),
-                              SizedBox(width: 70,),
-                               Text(
-                      '\₹  ${calculateTotalPrice().toStringAsFixed(2)}',
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                    ),
-      
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
                               
-                            ],
+                              children: [
+                                SizedBox(height: 40,),
+                                Text("Total MRP            :", style: TextStyle(fontSize: 20),),
+                                SizedBox(width: 70,),
+                                 Text(
+                                                '\₹  ${calculateTotalPrice().toStringAsFixed(2)}',
+                                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                                              ),
+                                
+                                
+                              ],
+                            ),
                           ),
                            Row(
                             
@@ -160,6 +191,8 @@ class _orderPageState extends State<orderPage> {
                         ),
                         SizedBox(height: 10,),
                         MaterialButton(onPressed: (){
+
+                          _dialogebox();
 
         
             },child: Text("Confirm Order",style:TextStyle(fontWeight: FontWeight.bold,color: Colors.white)),shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),color: const Color.fromARGB(255, 0, 0, 0),height: 40,),

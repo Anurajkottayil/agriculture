@@ -1,6 +1,8 @@
+import 'package:agriculture/pages/cart_appbar.dart';
 import 'package:flutter/material.dart';
 import 'cart_page.dart';
 import 'Login _page.dart';
+import 'cart_appbar.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -34,7 +36,7 @@ class ProfilePage extends StatelessWidget {
                   title: const Text("My cart"),
                   leading: const Icon(Icons.shopping_basket),
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage1()));
                   },
 
                 ),

@@ -1,7 +1,7 @@
 import 'package:agriculture/models/product.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:agriculture/pages/cart_page.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';  
+import 'package:agriculture/pages/cart_page.dart';    
 import 'package:agriculture/pages/cart.dart';
 import 'package:agriculture/pages/cart_appbar.dart';
 
@@ -32,10 +32,10 @@ void addToCart(Product product) {
     );
 
     if (existingProduct.name.isNotEmpty) {
-      // Update the count for the existing product
+   
       existingProduct.countincart += count;
     } else {
-      // Add the product to the cart with the current count
+     
       cart.add(
         Product(
           name: product.name,
