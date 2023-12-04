@@ -1,6 +1,9 @@
 import 'package:agriculture/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:agriculture/pages/cart_page.dart';
+import 'package:agriculture/pages/cart.dart';
+import 'package:agriculture/pages/cart_appbar.dart';
 
 
 class ProductDetailsPage extends StatefulWidget {
@@ -13,6 +16,46 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
+int count = 1;
+
+void addToCart(Product product) {
+    var existingProduct = cart.firstWhere(
+      (element) => element.name == product.name,
+      orElse: () => Product(
+        name: "",
+        description: "",
+        image: "",
+        price: 0.0,
+        unit: "",
+        rating: 0.0,
+      ),
+    );
+
+    if (existingProduct.name.isNotEmpty) {
+      // Update the count for the existing product
+      existingProduct.countincart += count;
+    } else {
+      // Add the product to the cart with the current count
+      cart.add(
+        Product(
+          name: product.name,
+          description: product.description,
+          image: product.image,
+          price: product.price,
+          unit: product.unit,
+          rating: product.rating,
+          countincart: count,
+          
+        ),
+      );
+    }
+
+  
+    setState(() {
+      count = 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,9 +117,31 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   ),
                   Row(
                     children: [
-                      IconButton.filledTonal(onPressed: () {}, icon: Icon(Icons.add,color:const Color.fromARGB(255, 0, 81, 3),size: 38,)),
-                      Text("1 ${widget.product.unit}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                      IconButton.filledTonal(onPressed: () {}, icon: Icon(Icons.remove,color:Color.fromARGB(255, 3, 89, 6),size: 38,))
+
+                        IconButton.filledTonal(onPressed: () {
+                        setState(() {
+                        if (count > 1) {
+                          count--;
+                        }
+                      });
+                      }, icon: Icon(Icons.remove,color:Color.fromARGB(255, 3, 89, 6),size: 38,)),
+
+                      SizedBox(width: 15,),
+                      
+                     Text(count.toString(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                     SizedBox(width: 15,),
+
+                      IconButton.filledTonal(onPressed: () {
+                          setState(() {
+                        if (count >= 1) {
+                          count++;
+                        }
+                      });
+
+
+                      }, icon: Icon(Icons.add,color:const Color.fromARGB(255, 0, 81, 3),size: 38,)),
+
+                    
                     ],
                   )
 
@@ -98,7 +163,17 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 
                 children: [
                  
-                Expanded(child: FilledButton.icon(onPressed:(){}, icon:Icon(Icons.shopping_bag), label: Text("Add to cart"),))
+                Expanded(child: FilledButton.icon(
+              onPressed: () {
+               addToCart(widget.product);
+               Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage1()));
+
+              
+              
+              },
+              icon: Icon(Icons.shopping_bag),
+              label: Text("Add to cart"),
+            ),)
                 ],
               )
             ],

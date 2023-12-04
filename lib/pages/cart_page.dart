@@ -1,63 +1,61 @@
 import 'package:agriculture/data/products.dart';
+import 'package:agriculture/models/product.dart';
 import 'package:agriculture/widgets/cart_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'cart.dart';
 
 class CartPage extends StatefulWidget {
-  const CartPage({super.key});
+ const  CartPage({super.key});
 
   @override
   State<CartPage> createState() => _CartPageState();
 }
 
 class _CartPageState extends State<CartPage> {
-  final cartItems = products.take(4).toList();
 
+   void _deleteItem(int index) {
+    setState(() {
+      cart.removeAt(index);
+    });
+  }
+
+  
   @override
   Widget build(BuildContext context) {
-    final total =
-        cartItems.map((cartItem) => cartItem.price).reduce((value, element) => value + element).toStringAsFixed(2);
-    return Scaffold(
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            ...List.generate(
-              cartItems.length,
-              (index) {
-                final cartItem = cartItems[index];
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: CartItem(cartItem: cartItem),
-                );
-              },
-            ),
-            const SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return  Scaffold(
+
+
+     body: ListView.builder(
+        itemCount: cart.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: SizedBox(
+              height: 50,
+              width: 50,
+              child: Image.asset(cart[index].image,fit: BoxFit.cover,)),
+            title: Text(cart[index].name,style: TextStyle(fontSize:20, fontWeight: FontWeight.bold),),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Total (${cartItems.length} items)"),
-                Text(
-                  "\Rs.$total",
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                )
+                Text('Count: ${cart[index].countincart}',),
+                Text('Total: \Rs.${calculateTotalForItem(cart[index]).toStringAsFixed(2)}'),
+                
               ],
             ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton.icon(
-                onPressed: () {},
-                label: const Text("Proceed to Checkout"),
-                icon: const Icon(IconlyBold.arrowRight),
-              ),
-            )
-          ],
-        ),
+            trailing: IconButton(onPressed: (){
+                _deleteItem(index);
+              
+            }, icon:Icon(Icons.delete)),
+           
+          );
+        },
       ),
-    );
+
+
+    ); 
+  }
+   double calculateTotalForItem(Product product) {
+    return product.price * product.countincart;
   }
 }

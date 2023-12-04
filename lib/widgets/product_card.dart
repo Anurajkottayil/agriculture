@@ -68,10 +68,6 @@ class ProductCard extends StatelessWidget {
                       ),
                       
                   
-                    SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: IconButton.filled(onPressed: (){},padding: EdgeInsetsDirectional.zero, icon: Icon(Icons.add)))
                   ],
                 )
               ],
